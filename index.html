@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumina Aesthetics | Advanced Dermatology & Aesthetic Precision</title>
+  <meta name="description" content="High-end bespoke dermatology, laser rejuvenation, and aesthetic precision led by Dr. Elena Vance, MD. London & Dubai private clinics." />
+
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Luxury Theme Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              DEFAULT: '#C5A880',
+              50: '#FAF7F2',
+              100: '#F4ECE1',
+              200: '#E8D9C3',
+              300: '#DCC6A5',
+              400: '#D0B78B',
+              500: '#C5A880',
+              600: '#B08E60',
+              700: '#8C6F45',
+              800: '#685030',
+              900: '#43331C',
+            },
+            obsidian: {
+              DEFAULT: '#121417',
+              surface: '#1A1D22',
+              card: '#16191E',
+              border: '#2A2E37',
+            },
+            alabaster: {
+              DEFAULT: '#F8F6F2',
+              pure: '#FFFFFF',
+              dark: '#EFECE6',
+            },
+            slateMist: '#7A7D84',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            'gold-sm': '0 4px 20px -2px rgba(197, 168, 128, 0.25)',
+            'gold-lg': '0 12px 36px -4px rgba(197, 168, 128, 0.35)',
+            'dark-xl': '0 20px 40px -15px rgba(0, 0, 0, 0.7)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 7px; }
+    ::-webkit-scrollbar-track { background: #121417; }
+    ::-webkit-scrollbar-thumb { background: #C5A880; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #B08E60; }
+
+    /* Glassmorphism Styles */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.65);
+    }
+
+    .dark-glass-card {
+      background: rgba(26, 29, 34, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(197, 168, 128, 0.18);
+    }
+
+    /* Smooth Reveal Animations */
+    .reveal-init {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger Delays */
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+
+    /* Floating Animation */
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-7px); }
+    }
+    .animate-float {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+
+    /* Star Rating Active State */
+    .star-btn.active {
+      color: #C5A880;
+      fill: #C5A880;
+    }
+  </style>
+</head>
+
+<body class="bg-alabaster font-sans text-obsidian antialiased selection:bg-gold selection:text-obsidian overflow-x-hidden">
+
+  <!-- ========================================================================= -->
+  <!-- TOAST NOTIFICATION BANNER                                                 -->
+  <!-- ========================================================================= -->
+  <div id="review-toast" class="fixed top-6 right-6 z-50 bg-obsidian-surface border border-gold/50 rounded-2xl p-4 shadow-2xl transition-all duration-400 transform translate-x-40 opacity-0 pointer-events-none max-w-sm">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <p class="text-xs font-bold text-alabaster">Review Published Live ✨</p>
+        <p id="review-toast-msg" class="text-[11px] text-slateMist">Thank you! Your treatment experience is now visible to other patients.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- TOP ANNOUNCEMENT BAR                                                      -->
+  <!-- ========================================================================= -->
+  <aside aria-label="Announcement" class="bg-obsidian text-alabaster border-b border-obsidian-border text-xs tracking-wider uppercase py-2.5 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[11px] font-medium gap-2">
+      <div class="flex items-center space-x-3 text-gold">
+        <span class="flex h-1.5 w-1.5 rounded-full bg-gold animate-pulse"></span>
+        <span class="text-alabaster/90 font-medium">Bespoke Medical Dermatology &bull; Mayfair, London &amp; DIFC, Dubai</span>
+      </div>
+      <div class="flex items-center space-x-4 text-slateMist">
+        <span>Mon–Sat: 9:00 AM – 7:00 PM</span>
+        <span class="text-gold/40">|</span>
+        <a href="tel:+442079460192" class="hover:text-gold transition-colors text-alabaster/90 font-semibold flex items-center gap-1">
+          <i data-lucide="phone" class="w-3 h-3 text-gold"></i>
+          <span>+44 20 7946 0192</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- 1. STICKY LUXURY HEADER                                                   -->
+  <!-- ========================================================================= -->
+  <header id="main-header" class="sticky top-0 z-40 w-full transition-all duration-300 bg-alabaster/90 backdrop-blur-md border-b border-gold/15">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Minimalist Radiance Brand Logo -->
+        <a href="#" class="flex items-center gap-3 group focus:outline-none">
+          <div class="w-9 h-9 rounded-lg bg-obsidian flex items-center justify-center text-gold shadow-sm group-hover:bg-gold group-hover:text-obsidian transition-all duration-300">
+            <svg class="w-5 h-5 transition-transform duration-500 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 12l10 10 10-12L12 2z"/>
+              <path d="M12 6l-6 6 6 6 6-6-6-6z" stroke-width="1.2" opacity="0.8"/>
+              <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif text-xl sm:text-2xl font-bold tracking-[0.2em] text-obsidian leading-none">
+              LUMINA
+            </span>
+            <span class="text-[9px] tracking-[0.3em] font-semibold text-slateMist uppercase mt-0.5">
+              Aesthetics Clinic
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+          <a href="#services" class="text-obsidian hover:text-gold transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gold after:scale-x-0 hover:after:scale-x-100 after:transition-transform">Treatments</a>
+          <a href="#about" class="text-obsidian hover:text-gold transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gold after:scale-x-0 hover:after:scale-x-100 after:transition-transform">The Clinic</a>
+          <a href="#doctor" class="text-obsidian hover:text-gold transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gold after:scale-x-0 hover:after:scale-x-100 after:transition-transform">Medical Director</a>
+          <a href="#reviews" class="text-obsidian hover:text-gold transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gold after:scale-x-0 hover:after:scale-x-100 after:transition-transform">Patient Reviews</a>
+          <a href="#experience" class="text-obsidian hover:text-gold transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gold after:scale-x-0 hover:after:scale-x-100 after:transition-transform">Experience</a>
+          <a href="#contact" class="text-obsidian hover:text-gold transition-colors duration-200 py-1 relative after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-gold after:scale-x-0 hover:after:scale-x-100 after:transition-transform">Contact</a>
+        </nav>
+
+        <!-- Header Contact Action CTA -->
+        <div class="hidden md:flex items-center space-x-3">
+          <a href="#review-form-anchor" onclick="openReviewDrawer()" class="px-4 py-2 rounded-full border border-gold/40 text-xs font-semibold text-obsidian hover:bg-gold/15 transition-all duration-200 flex items-center gap-1.5">
+            <i data-lucide="star" class="w-3.5 h-3.5 text-gold-700"></i>
+            <span>Write Review</span>
+          </a>
+          <a href="#contact" class="px-6 py-2.5 rounded-full bg-obsidian text-alabaster text-sm font-semibold tracking-wide hover:bg-gold hover:text-obsidian transition-all duration-300 shadow-md hover:shadow-gold-sm hover:-translate-y-0.5 flex items-center gap-2">
+            <span>Contact Concierge</span>
+            <i data-lucide="arrow-down" class="w-4 h-4 text-gold"></i>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Hamburger Button -->
+        <div class="md:hidden flex items-center gap-2">
+          <a href="#review-form-anchor" onclick="openReviewDrawer()" class="px-3 py-1.5 rounded-full bg-gold/20 text-xs font-bold text-obsidian flex items-center gap-1">
+            <i data-lucide="star" class="w-3 h-3"></i>
+            <span>Review</span>
+          </a>
+          <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-lg text-obsidian hover:text-gold hover:bg-gold/10 focus:outline-none transition-colors" aria-label="Toggle Navigation Menu">
+            <i id="menu-icon" data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Slide Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden bg-alabaster border-b border-gold/20 px-6 pt-3 pb-6 space-y-4 shadow-xl transition-all duration-300">
+      <nav class="flex flex-col space-y-3 text-base font-medium">
+        <a href="#services" onclick="toggleMobileMenu()" class="text-obsidian hover:text-gold py-2 border-b border-gray-100 transition-colors">Treatments</a>
+        <a href="#about" onclick="toggleMobileMenu()" class="text-obsidian hover:text-gold py-2 border-b border-gray-100 transition-colors">The Clinic</a>
+        <a href="#doctor" onclick="toggleMobileMenu()" class="text-obsidian hover:text-gold py-2 border-b border-gray-100 transition-colors">Medical Director</a>
+        <a href="#reviews" onclick="toggleMobileMenu()" class="text-obsidian hover:text-gold py-2 border-b border-gray-100 transition-colors">Patient Reviews</a>
+        <a href="#experience" onclick="toggleMobileMenu()" class="text-obsidian hover:text-gold py-2 border-b border-gray-100 transition-colors">Experience</a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="text-gold-700 font-bold py-2 transition-colors flex items-center gap-2">
+          <i data-lucide="phone-call" class="w-4 h-4"></i>
+          <span>Direct Contact &amp; Concierge</span>
+        </a>
+      </nav>
+      <div class="pt-2 flex flex-col gap-2">
+        <a href="#review-form-anchor" onclick="openReviewDrawer(); toggleMobileMenu();" class="w-full py-2.5 rounded-full border border-gold text-obsidian font-bold text-center text-xs uppercase tracking-wider bg-gold/10">
+          Share Your Treatment Review
+        </a>
+        <a href="#contact" onclick="toggleMobileMenu()" class="block w-full py-3 rounded-full bg-obsidian text-alabaster font-semibold text-center text-sm tracking-wide hover:bg-gold hover:text-obsidian transition-colors shadow-md">
+          View Clinic Contact Details
+        </a>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ========================================================================= -->
+  <!-- 2. HERO SECTION                                                           -->
+  <!-- ========================================================================= -->
+  <section class="relative bg-alabaster overflow-hidden pt-10 pb-16 lg:pt-20 lg:pb-28">
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/10 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+    <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-7 space-y-8 text-left reveal-init">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold/15 border border-gold/30 text-obsidian text-xs font-semibold uppercase tracking-widest">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-gold-700"></i>
+            <span>Bespoke Clinical Skincare</span>
+          </div>
+
+          <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-obsidian leading-[1.12] tracking-tight font-medium">
+            Advanced Dermatology &amp; <span class="italic font-normal">Aesthetic Precision</span>
+          </h1>
+
+          <p class="font-sans text-slateMist text-lg sm:text-xl font-normal leading-relaxed max-w-2xl">
+            Experience tailored clinical skincare, laser rejuvenation, and bespoke aesthetic treatments curated by board-certified dermatologists.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+            <a href="#contact" class="px-8 py-4 rounded-full bg-gold text-obsidian font-semibold text-sm tracking-wider uppercase hover:bg-gold-400 hover:shadow-gold-lg transition-all duration-300 text-center flex items-center justify-center gap-2 transform active:scale-95 shadow-gold-sm">
+              <span>Contact Clinic</span>
+              <i data-lucide="arrow-down" class="w-4 h-4"></i>
+            </a>
+
+            <a href="#reviews" class="px-8 py-4 rounded-full border border-obsidian text-obsidian font-semibold text-sm tracking-wider uppercase hover:bg-obsidian hover:text-alabaster transition-all duration-300 text-center flex items-center justify-center gap-2">
+              <span>Read Patient Reviews</span>
+              <i data-lucide="star" class="w-4 h-4"></i>
+            </a>
+          </div>
+
+          <!-- Social Proof Bar linked to Reviews -->
+          <div class="pt-6 border-t border-gold/20 flex flex-wrap items-center gap-4">
+            <div class="flex -space-x-2 overflow-hidden">
+              <img class="inline-block h-10 w-10 rounded-full ring-2 ring-alabaster object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Patient" />
+              <img class="inline-block h-10 w-10 rounded-full ring-2 ring-alabaster object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Patient" />
+              <img class="inline-block h-10 w-10 rounded-full ring-2 ring-alabaster object-cover" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=150&q=80" alt="Patient" />
+              <div class="h-10 w-10 rounded-full bg-gold text-obsidian font-bold text-xs flex items-center justify-center ring-2 ring-alabaster">
+                +1.2k
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center gap-1 text-gold-700">
+                <i data-lucide="star" class="w-4 h-4 fill-gold text-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-gold text-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-gold text-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-gold text-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-gold text-gold"></i>
+                <span id="hero-star-avg" class="font-bold text-obsidian text-sm ml-1.5">★ 4.9/5 Rating</span>
+              </div>
+              <p id="hero-review-count" class="text-xs text-slateMist font-medium">Over 1,200+ private consultations across London &amp; Dubai</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Visual -->
+        <div class="lg:col-span-5 relative reveal-init delay-200">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <div class="absolute -inset-3 rounded-2xl border-2 border-gold/30 -rotate-2 pointer-events-none"></div>
+
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-obsidian aspect-[4/5] group">
+              <img 
+                src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1000&q=85" 
+                alt="Lumina Aesthetics Clinic Interior" 
+                class="w-full h-full object-cover object-center filter brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-700 ease-out" 
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-obsidian/75 via-transparent to-black/10"></div>
+
+              <div class="absolute top-5 right-5 glass-card px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-3 animate-float">
+                <div class="p-2 rounded-lg bg-gold text-obsidian">
+                  <i data-lucide="shield-check" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <p class="text-[10px] uppercase tracking-wider text-slateMist font-semibold">Accreditation</p>
+                  <p class="text-xs font-bold text-obsidian">Board Certified Clinic</p>
+                </div>
+              </div>
+
+              <div class="absolute bottom-6 left-6 right-6 glass-card p-4 rounded-xl shadow-xl border border-white/40">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-obsidian text-gold flex items-center justify-center font-serif text-base font-bold">
+                      LA
+                    </div>
+                    <div>
+                      <p class="text-xs font-serif font-bold text-obsidian">Private Medical Suites</p>
+                      <p class="text-[11px] text-slateMist">Confidential Care in Mayfair &amp; DIFC</p>
+                    </div>
+                  </div>
+                  <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-gold/30 text-obsidian">
+                    London &bull; Dubai
+                  </span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 3. KEY TREATMENT OFFERINGS                                                -->
+  <!-- ========================================================================= -->
+  <section id="services" class="bg-obsidian text-alabaster py-20 lg:py-28 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal-init">
+        <span class="text-gold text-xs font-semibold tracking-[0.25em] uppercase inline-block">
+          Signature Medical Offerings
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-alabaster font-medium tracking-tight">
+          Precision-Led Treatment Categories
+        </h2>
+        <div class="w-16 h-0.5 bg-gold mx-auto mt-2"></div>
+        <p class="text-slateMist text-base sm:text-lg font-normal leading-relaxed">
+          Every protocol begins with microscopic skin analysis and is customized to your unique dermal biology.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Treatment 1 -->
+        <div class="dark-glass-card rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between border border-gold/20 hover:border-gold group reveal-init delay-100">
+          <div class="space-y-6">
+            <div class="flex items-center justify-between">
+              <div class="w-14 h-14 rounded-xl bg-obsidian-surface border border-gold/30 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-obsidian transition-all duration-300 shadow-md">
+                <i data-lucide="microscope" class="w-7 h-7"></i>
+              </div>
+              <span class="text-[11px] uppercase tracking-widest text-gold/80 font-semibold px-2.5 py-1 rounded bg-gold/10">Medical Grade</span>
+            </div>
+
+            <div class="space-y-3">
+              <h3 class="font-serif text-2xl text-alabaster font-medium group-hover:text-gold transition-colors">
+                Clinical Dermatology
+              </h3>
+              <p class="text-slateMist text-sm leading-relaxed">
+                Targeted acne, pigmentation, and barrier-repair treatments with medical-grade precision.
+              </p>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-alabaster/80 pt-2 border-t border-obsidian-border">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i><span>Medical-grade chemical peels</span></li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i><span>Melasma &amp; hyperpigmentation cures</span></li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i><span>Cellular barrier restoration</span></li>
+            </ul>
+          </div>
+
+          <div class="pt-8">
+            <a href="#contact" class="w-full py-3 rounded-lg border border-gold/40 text-gold text-xs font-semibold uppercase tracking-wider hover:bg-gold hover:text-obsidian transition-all duration-200 flex items-center justify-center gap-2">
+              <span>Inquire on Protocol</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Treatment 2 -->
+        <div class="dark-glass-card rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between border border-gold/20 hover:border-gold group relative reveal-init delay-200">
+          <div class="absolute -top-3 right-6 bg-gold text-obsidian text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
+            Most Requested
+          </div>
+
+          <div class="space-y-6">
+            <div class="flex items-center justify-between">
+              <div class="w-14 h-14 rounded-xl bg-obsidian-surface border border-gold/30 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-obsidian transition-all duration-300 shadow-md">
+                <i data-lucide="zap" class="w-7 h-7"></i>
+              </div>
+              <span class="text-[11px] uppercase tracking-widest text-gold/80 font-semibold px-2.5 py-1 rounded bg-gold/10">FDA-Cleared</span>
+            </div>
+
+            <div class="space-y-3">
+              <h3 class="font-serif text-2xl text-alabaster font-medium group-hover:text-gold transition-colors">
+                Laser &amp; Rejuvenation
+              </h3>
+              <p class="text-slateMist text-sm leading-relaxed">
+                Non-invasive skin resurfacing, collagen boosting, and tone correction using FDA-cleared tech.
+              </p>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-alabaster/80 pt-2 border-t border-obsidian-border">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i><span>Fractional picosecond laser</span></li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i><span>Morpheus8 RF collagen remodelling</span></li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i><span>Zero downtime photo-rejuvenation</span></li>
+            </ul>
+          </div>
+
+          <div class="pt-8">
+            <a href="#contact" class="w-full py-3 rounded-lg bg-gold text-obsidian text-xs font-semibold uppercase tracking-wider hover:bg-gold-400 transition-all duration-200 flex items-center justify-center gap-2 shadow-gold-sm">
+              <span>Inquire on Protocol</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Treatment 3 -->
+        <div class="dark-glass-card rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between border border-gold/20 hover:border-gold group reveal-init delay-300">
+          <div class="space-y-6">
+            <div class="flex items-center justify-between">
+              <div class="w-14 h-14 rounded-xl bg-obsidian-surface border border-gold/30 flex items-center justify-center text-gold group-hover:bg-gold group-hover:text-obsidian transition-all duration-300 shadow-md">
+                <i data-lucide="feather" class="w-7 h-7"></i>
+              </div>
+              <span class="text-[11px] uppercase tracking-widest text-gold/80 font-semibold px-2.5 py-1 rounded bg-gold/10">Natural Artistry</span>
+            </div>
+
+            <div class="space-y-3">
+              <h3 class="font-serif text-2xl text-alabaster font-medium group-hover:text-gold transition-colors">
+                Injectables &amp; Sculpting
+              </h3>
+              <p class="text-slateMist text-sm leading-relaxed">
+                Natural anti-wrinkle micro-treatments and subtle contouring tailored to your facial anatomy.
+              </p>
+            </div>
+
+            <ul class="space-y-2.5 text-xs text-alabaster/80 pt-2 border-t border-obsidian-border">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i><span>Baby-dose micro neuromodulators</span></li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i><span>Anatomical hyaluronic sculpting</span></li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i><span>Jawline &amp; mid-face harmonisation</span></li>
+            </ul>
+          </div>
+
+          <div class="pt-8">
+            <a href="#contact" class="w-full py-3 rounded-lg border border-gold/40 text-gold text-xs font-semibold uppercase tracking-wider hover:bg-gold hover:text-obsidian transition-all duration-200 flex items-center justify-center gap-2">
+              <span>Inquire on Protocol</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="mt-14 pt-8 border-t border-obsidian-border flex flex-wrap items-center justify-around gap-6 text-center text-slateMist text-xs tracking-wider uppercase reveal-init">
+        <div class="flex items-center gap-2">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-gold"></i>
+          <span>100% Doctor-Delivered Procedures</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i data-lucide="shield" class="w-4 h-4 text-gold"></i>
+          <span>Sterile Medical Suite Environment</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i data-lucide="award" class="w-4 h-4 text-gold"></i>
+          <span>Personalised Aftercare Concierge</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 4. DOCTOR SPOTLIGHT / ABOUT US                                            -->
+  <!-- ========================================================================= -->
+  <section id="doctor" class="bg-alabaster py-20 lg:py-28 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Portrait -->
+        <div class="lg:col-span-5 relative reveal-init">
+          <div class="relative mx-auto max-w-md lg:max-w-none">
+            <div class="absolute -top-4 -left-4 w-full h-full rounded-2xl border-2 border-gold/40 pointer-events-none hidden sm:block"></div>
+            
+            <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-obsidian aspect-[3/4]">
+              <img 
+                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1000&q=85" 
+                alt="Dr. Elena Vance, MD - Chief Aesthetic Dermatologist" 
+                class="w-full h-full object-cover object-top filter contrast-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent"></div>
+
+              <div class="absolute bottom-6 left-6 right-6 glass-card p-4 rounded-xl border border-white/60">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-[10px] uppercase font-bold tracking-widest text-gold-700">Clinical Leadership</span>
+                    <h4 class="font-serif text-base font-bold text-obsidian">Dr. Elena Vance, MD</h4>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-xs font-bold text-obsidian">14+ Years</span>
+                    <p class="text-[10px] text-slateMist">London &amp; Dubai</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Column: Text & Bio -->
+        <div class="lg:col-span-7 space-y-6 reveal-init delay-100" id="about">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold/15 border border-gold/30 text-obsidian text-xs font-semibold uppercase tracking-widest">
+            <i data-lucide="user-check" class="w-3.5 h-3.5 text-gold-700"></i>
+            <span>Clinical Leadership &amp; Philosophy</span>
+          </div>
+
+          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-obsidian font-medium leading-tight">
+            World-Class Expertise in Every Treatment
+          </h2>
+
+          <div class="space-y-1">
+            <h3 class="text-xl sm:text-2xl font-serif font-bold text-gold-700">
+              Dr. Elena Vance, MD
+            </h3>
+            <p class="text-xs uppercase tracking-widest text-slateMist font-semibold">
+              Chief Aesthetic Dermatologist &amp; Medical Director
+            </p>
+          </div>
+
+          <p class="font-sans text-slateMist text-base sm:text-lg leading-relaxed">
+            With over 14 years of clinical experience across London and Dubai, Dr. Vance combines anatomical science with delicate aesthetic artistry.
+          </p>
+
+          <p class="text-slateMist text-sm sm:text-base leading-relaxed">
+            Trained at the world’s leading dermatology institutes, Dr. Vance advocates for undetectable enhancements that honour your distinct facial proportions rather than conforming to fleeting trends.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gold/20">
+            <div class="flex items-start gap-3">
+              <div class="p-2 rounded-lg bg-gold/20 text-obsidian shrink-0 mt-0.5">
+                <i data-lucide="award" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h5 class="text-xs font-bold text-obsidian">Fellow, Royal College of Physicians</h5>
+                <p class="text-[11px] text-slateMist">Advanced Clinical Dermatology</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <div class="p-2 rounded-lg bg-gold/20 text-obsidian shrink-0 mt-0.5">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h5 class="text-xs font-bold text-obsidian">Harvard Medical Aesthetics</h5>
+                <p class="text-[11px] text-slateMist">Postgraduate Laser Therapeutics</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 flex flex-wrap items-center gap-4">
+            <a href="#contact" class="px-6 py-3 rounded-full bg-obsidian text-alabaster font-semibold text-xs uppercase tracking-widest hover:bg-gold hover:text-obsidian transition-all duration-300 shadow-md flex items-center gap-2">
+              <span>Contact Doctor's Office</span>
+              <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+            </a>
+            <div class="flex items-center gap-2 text-xs text-slateMist font-medium italic">
+              <i data-lucide="clock" class="w-4 h-4 text-gold-700"></i>
+              <span>Consultations by private appointment</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 5. PATIENT TREATMENT REVIEWS & SUBMISSION SECTION                          -->
+  <!-- ========================================================================= -->
+  <section id="reviews" class="bg-[#FAF8F5] py-20 lg:py-28 relative overflow-hidden border-t border-gold/15">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
+      
+      <!-- Section Header with Stats & Action Button -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-init">
+        <div class="space-y-3 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold/20 border border-gold/40 text-obsidian text-xs font-semibold uppercase tracking-widest">
+            <i data-lucide="message-square" class="w-3.5 h-3.5 text-gold-700"></i>
+            <span>Verified Patient Feedback</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-obsidian font-medium tracking-tight">
+            Treatment Experiences &amp; Reviews
+          </h2>
+          <p class="text-slateMist text-base">
+            Read firsthand testimonials from patients who underwent custom clinical skincare and laser protocols at Lumina.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="bg-white border border-gold/30 rounded-2xl px-5 py-3 shadow-sm flex items-center gap-3">
+            <div class="text-center">
+              <div class="flex items-center text-gold">
+                <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+                <i data-lucide="star" class="w-4 h-4 fill-gold"></i>
+              </div>
+              <span id="reviews-avg-rating" class="font-bold text-obsidian text-sm font-serif">4.9 / 5.0</span>
+            </div>
+            <div class="border-l border-gray-200 pl-3">
+              <span id="reviews-total-count" class="font-bold text-obsidian text-sm block leading-tight">4</span>
+              <span class="text-[10px] text-slateMist uppercase tracking-wider font-semibold">Published Reviews</span>
+            </div>
+          </div>
+
+          <button id="review-form-anchor" onclick="toggleReviewDrawer()" class="px-6 py-3.5 rounded-2xl bg-obsidian text-alabaster hover:bg-gold hover:text-obsidian text-xs font-bold uppercase tracking-widest transition-all duration-200 shadow-md flex items-center gap-2">
+            <i data-lucide="pen-tool" class="w-4 h-4"></i>
+            <span id="drawer-btn-label">Share Your Review</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Expandable Review Submission Drawer Form -->
+      <div id="review-submission-drawer" class="hidden transition-all duration-500">
+        <div class="bg-obsidian text-alabaster border border-gold/30 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6 relative overflow-hidden">
+          
+          <div class="flex justify-between items-start border-b border-obsidian-border pb-4">
+            <div>
+              <span class="text-[10px] uppercase font-bold tracking-widest text-gold">Patient Experience Program</span>
+              <h3 class="font-serif text-2xl text-alabaster mt-1">Submit Your Treatment Review</h3>
+              <p class="text-xs text-slateMist">Your review will be immediately published to assist prospective patients.</p>
+            </div>
+            <button onclick="closeReviewDrawer()" class="text-slateMist hover:text-alabaster p-1 rounded-lg hover:bg-obsidian-surface">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <form onsubmit="handleReviewSubmit(event)" class="space-y-5 text-xs">
+            
+            <!-- Interactive 5-Star Rating Selector -->
+            <div>
+              <label class="block text-xs uppercase font-bold tracking-wider text-slateMist mb-2">Overall Treatment Rating</label>
+              <div class="flex items-center gap-2" id="star-rating-picker">
+                <button type="button" onclick="setRating(1)" class="star-picker-btn text-gold p-1 focus:outline-none transition-transform hover:scale-125" data-star="1">
+                  <i data-lucide="star" class="w-7 h-7 fill-gold"></i>
+                </button>
+                <button type="button" onclick="setRating(2)" class="star-picker-btn text-gold p-1 focus:outline-none transition-transform hover:scale-125" data-star="2">
+                  <i data-lucide="star" class="w-7 h-7 fill-gold"></i>
+                </button>
+                <button type="button" onclick="setRating(3)" class="star-picker-btn text-gold p-1 focus:outline-none transition-transform hover:scale-125" data-star="3">
+                  <i data-lucide="star" class="w-7 h-7 fill-gold"></i>
+                </button>
+                <button type="button" onclick="setRating(4)" class="star-picker-btn text-gold p-1 focus:outline-none transition-transform hover:scale-125" data-star="4">
+                  <i data-lucide="star" class="w-7 h-7 fill-gold"></i>
+                </button>
+                <button type="button" onclick="setRating(5)" class="star-picker-btn text-gold p-1 focus:outline-none transition-transform hover:scale-125" data-star="5">
+                  <i data-lucide="star" class="w-7 h-7 fill-gold"></i>
+                </button>
+                <span id="selected-rating-label" class="text-xs font-bold text-gold ml-2">5 Stars (Exceptional)</span>
+              </div>
+            </div>
+
+            <!-- Name & Location Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs uppercase font-bold tracking-wider text-slateMist mb-1.5">Your Name / Title</label>
+                <input required id="review-author" type="text" placeholder="e.g. Sarah K. or Lady Camilla V." class="w-full px-4 py-3 rounded-xl bg-obsidian-surface border border-obsidian-border text-alabaster focus:outline-none focus:border-gold text-sm transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs uppercase font-bold tracking-wider text-slateMist mb-1.5">Treatment Undergone</label>
+                <select id="review-treatment" class="w-full px-4 py-3 rounded-xl bg-obsidian-surface border border-obsidian-border text-alabaster focus:outline-none focus:border-gold text-xs transition-colors">
+                  <option value="Laser & Rejuvenation">Laser &amp; Rejuvenation (Picosecond / Morpheus8)</option>
+                  <option value="Clinical Dermatology">Clinical Dermatology (Acne / Barrier Restoration)</option>
+                  <option value="Injectables & Sculpting">Injectables &amp; Sculpting (Micro-Neuromodulator)</option>
+                  <option value="Visia 3D Diagnostic Consultation">Visia 3D Diagnostic Consultation</option>
+                  <option value="Private Bespoke Protocol">Private Bespoke Protocol with Dr. Elena Vance</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs uppercase font-bold tracking-wider text-slateMist mb-1.5">Clinic Location</label>
+                <input id="review-location" type="text" placeholder="e.g. London Mayfair Suite or Dubai DIFC" class="w-full px-4 py-3 rounded-xl bg-obsidian-surface border border-obsidian-border text-alabaster focus:outline-none focus:border-gold text-sm transition-colors" />
+              </div>
+              <div>
+                <label class="block text-xs uppercase font-bold tracking-wider text-slateMist mb-1.5">Review Headline</label>
+                <input id="review-title" type="text" placeholder="e.g. Flawless texture transformation in 3 sessions" class="w-full px-4 py-3 rounded-xl bg-obsidian-surface border border-obsidian-border text-alabaster focus:outline-none focus:border-gold text-sm transition-colors" />
+              </div>
+            </div>
+
+            <!-- Review Feedback -->
+            <div>
+              <label class="block text-xs uppercase font-bold tracking-wider text-slateMist mb-1.5">Your Experience &amp; Treatment Outcome</label>
+              <textarea required id="review-comment" rows="3" placeholder="Share how your skin responded, the comfort during treatment, and your impression of Dr. Elena Vance's team..." class="w-full px-4 py-3 rounded-xl bg-obsidian-surface border border-obsidian-border text-alabaster placeholder-slateMist/50 text-sm focus:outline-none focus:border-gold transition-colors"></textarea>
+            </div>
+
+            <button type="submit" class="w-full py-4 rounded-xl bg-gold text-obsidian font-bold text-xs uppercase tracking-widest hover:bg-gold-400 transition-all duration-200 shadow-gold-sm flex items-center justify-center gap-2 cursor-pointer">
+              <span>Publish Review Live</span>
+              <i data-lucide="send" class="w-4 h-4"></i>
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+      <!-- Dynamic Live Patient Reviews Grid -->
+      <div id="patient-reviews-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically from LocalStorage via JS -->
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 6. CLINIC EXPERIENCE & METRICS PILLARS                                    -->
+  <!-- ========================================================================= -->
+  <section id="experience" class="bg-alabaster-dark/40 py-16 border-t border-b border-gold/15">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center reveal-init">
+        <div class="space-y-1">
+          <p class="font-serif text-3xl sm:text-4xl font-bold text-obsidian">1,200+</p>
+          <p class="text-xs uppercase tracking-wider text-slateMist font-medium">Bespoke Treatments</p>
+        </div>
+        <div class="space-y-1">
+          <p class="font-serif text-3xl sm:text-4xl font-bold text-obsidian">14+</p>
+          <p class="text-xs uppercase tracking-wider text-slateMist font-medium">Years Experience</p>
+        </div>
+        <div class="space-y-1">
+          <p class="font-serif text-3xl sm:text-4xl font-bold text-obsidian">100%</p>
+          <p class="text-xs uppercase tracking-wider text-slateMist font-medium">FDA-Cleared Tech</p>
+        </div>
+        <div class="space-y-1">
+          <p class="font-serif text-3xl sm:text-4xl font-bold text-obsidian">4.9 / 5</p>
+          <p class="text-xs uppercase tracking-wider text-slateMist font-medium">Patient Satisfaction</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 7. DIRECT CONTACT & CONCIERGE INFORMATION SECTION                         -->
+  <!-- ========================================================================= -->
+  <section id="contact" class="bg-obsidian text-alabaster py-20 lg:py-28 relative overflow-hidden">
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4 reveal-init">
+        <span class="text-gold text-xs font-semibold tracking-[0.25em] uppercase inline-block">
+          Direct Inquiries &amp; Consultations
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-alabaster font-medium tracking-tight">
+          Connect With Our Medical Concierge
+        </h2>
+        <div class="w-16 h-0.5 bg-gold mx-auto mt-2"></div>
+        <p class="text-slateMist text-base sm:text-lg font-normal leading-relaxed">
+          Reach our clinical coordination desk directly via phone, WhatsApp VIP concierge, or private medical email.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1: Telephone -->
+        <div class="dark-glass-card rounded-2xl p-7 space-y-5 border border-gold/20 hover:border-gold transition-all duration-300 hover:-translate-y-1.5 reveal-init delay-100">
+          <div class="w-12 h-12 rounded-xl bg-obsidian-surface border border-gold/40 text-gold flex items-center justify-center shadow-md">
+            <i data-lucide="phone-call" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-gold">Direct Lines</span>
+            <h3 class="font-serif text-xl text-alabaster font-medium mt-1">Telephone Inquiries</h3>
+            <p class="text-xs text-slateMist mt-1">Direct access to clinical coordination and appointment management.</p>
+          </div>
+          <div class="space-y-3 text-xs pt-2 border-t border-obsidian-border">
+            <div>
+              <span class="text-slateMist block text-[10px] uppercase font-bold tracking-wider">London Mayfair Suite</span>
+              <a href="tel:+442079460192" class="text-alabaster hover:text-gold transition-colors font-mono font-bold text-sm">
+                +44 20 7946 0192
+              </a>
+            </div>
+            <div>
+              <span class="text-slateMist block text-[10px] uppercase font-bold tracking-wider">Dubai DIFC Clinic</span>
+              <a href="tel:+97143128890" class="text-alabaster hover:text-gold transition-colors font-mono font-bold text-sm">
+                +971 4 312 8890
+              </a>
+            </div>
+            <div>
+              <span class="text-slateMist block text-[10px] uppercase font-bold tracking-wider">US Toll-Free Inquiries</span>
+              <a href="tel:+18005550199" class="text-alabaster hover:text-gold transition-colors font-mono font-bold text-sm">
+                +1 (800) 555-0199
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: WhatsApp -->
+        <div class="dark-glass-card rounded-2xl p-7 space-y-5 border border-gold/30 hover:border-gold transition-all duration-300 hover:-translate-y-1.5 reveal-init delay-200 relative overflow-hidden">
+          <div class="absolute top-4 right-4 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Online</span>
+          </div>
+
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 flex items-center justify-center shadow-md">
+            <i data-lucide="message-circle" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-emerald-400">Instant Messaging</span>
+            <h3 class="font-serif text-xl text-alabaster font-medium mt-1">WhatsApp VIP Concierge</h3>
+            <p class="text-xs text-slateMist mt-1">Fast confidential inquiries, treatment questions, and date checks.</p>
+          </div>
+          <div class="space-y-3 pt-2 border-t border-obsidian-border text-xs">
+            <p class="text-alabaster/80 leading-relaxed text-xs">
+              Chat directly with Dr. Elena Vance's patient concierge team on WhatsApp.
+            </p>
+            <a 
+              href="https://wa.me/442079460192?text=Hello%20Lumina%20Aesthetics%2C%20I%20would%20like%20to%20inquire%20about%20a%20private%20consultation%20with%20Dr.%20Elena%20Vance." 
+              target="_blank" 
+              class="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-obsidian text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/10"
+            >
+              <i data-lucide="message-square" class="w-4 h-4"></i>
+              <span>Start WhatsApp Chat</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: Email & Address -->
+        <div class="dark-glass-card rounded-2xl p-7 space-y-5 border border-gold/20 hover:border-gold transition-all duration-300 hover:-translate-y-1.5 reveal-init delay-300">
+          <div class="w-12 h-12 rounded-xl bg-obsidian-surface border border-gold/40 text-gold flex items-center justify-center shadow-md">
+            <i data-lucide="mail" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-gold">Written Inquiries</span>
+            <h3 class="font-serif text-xl text-alabaster font-medium mt-1">Email &amp; Location</h3>
+            <p class="text-xs text-slateMist mt-1">Private email dispatch for detailed clinical questions.</p>
+          </div>
+          <div class="space-y-3 text-xs pt-2 border-t border-obsidian-border">
+            <div>
+              <span class="text-slateMist block text-[10px] uppercase font-bold tracking-wider">Patient Concierge Email</span>
+              <a href="mailto:concierge@luminaclinic.com?subject=Private%20Consultation%20Inquiry%20-%20Lumina%20Aesthetics" class="text-alabaster hover:text-gold transition-colors font-medium text-xs break-all">
+                concierge@luminaclinic.com
+              </a>
+            </div>
+            <div>
+              <span class="text-slateMist block text-[10px] uppercase font-bold tracking-wider">London Mayfair Address</span>
+              <p class="text-alabaster/90 text-xs">404 Royal Oak Blvd, Suite 200, Mayfair, London</p>
+            </div>
+            <div>
+              <span class="text-slateMist block text-[10px] uppercase font-bold tracking-wider">Dubai DIFC Address</span>
+              <p class="text-alabaster/90 text-xs">Gate Precinct Building 4, Level 5, DIFC, Dubai</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bg-gradient-to-r from-obsidian-surface via-obsidian-card to-obsidian-surface border border-gold/20 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl reveal-init">
+        <div class="space-y-1 text-center md:text-left">
+          <span class="text-[10px] uppercase font-bold tracking-widest text-gold">Consultation Hours</span>
+          <h4 class="font-serif text-xl text-alabaster">Appointments &amp; VIP Concierge Hours</h4>
+          <p class="text-xs text-slateMist">Monday through Saturday: 9:00 AM – 7:00 PM (GMT &amp; GST). Sundays reserved for private treatments.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="mailto:concierge@luminaclinic.com" class="px-6 py-3 rounded-xl bg-gold text-obsidian font-bold text-xs uppercase tracking-widest hover:bg-gold-400 transition-all shadow-md flex items-center gap-2">
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Email Concierge</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 8. FOOTER                                                                 -->
+  <!-- ========================================================================= -->
+  <footer class="bg-obsidian text-slateMist pt-16 pb-12 border-t border-obsidian-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12 border-b border-obsidian-border">
+        
+        <div class="lg:col-span-5 space-y-5">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-gold text-obsidian flex items-center justify-center font-bold">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 12l10 10 10-12L12 2z"/>
+              </svg>
+            </div>
+            <span class="font-serif text-xl font-bold tracking-[0.2em] text-alabaster">
+              LUMINA
+            </span>
+          </div>
+          <p class="text-sm leading-relaxed text-slateMist max-w-sm">
+            High-end dermatology and aesthetic clinic dedicated to medical precision, understated luxury, and natural transformation.
+          </p>
+          <div class="flex items-center space-x-3 pt-2">
+            <a href="#" class="w-9 h-9 rounded-full bg-obsidian-surface hover:bg-gold hover:text-obsidian text-alabaster/80 flex items-center justify-center transition-colors" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-full bg-obsidian-surface hover:bg-gold hover:text-obsidian text-alabaster/80 flex items-center justify-center transition-colors" aria-label="Facebook">
+              <i data-lucide="facebook" class="w-4 h-4"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-full bg-obsidian-surface hover:bg-gold hover:text-obsidian text-alabaster/80 flex items-center justify-center transition-colors" aria-label="LinkedIn">
+              <i data-lucide="linkedin" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-3 space-y-4">
+          <h4 class="text-alabaster font-serif text-base font-semibold tracking-wide">
+            Treatments
+          </h4>
+          <ul class="space-y-2.5 text-xs">
+            <li><a href="#services" class="hover:text-gold transition-colors">Visia 3D Skin Complexion</a></li>
+            <li><a href="#services" class="hover:text-gold transition-colors">Fractional Laser Resurfacing</a></li>
+            <li><a href="#services" class="hover:text-gold transition-colors">Morpheus8 RF Remodelling</a></li>
+            <li><a href="#services" class="hover:text-gold transition-colors">Micro-Neuromodulator Dosing</a></li>
+            <li><a href="#services" class="hover:text-gold transition-colors">Cellular Barrier Restoration</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-4 space-y-4">
+          <h4 class="text-alabaster font-serif text-base font-semibold tracking-wide">
+            Clinic Contact Details
+          </h4>
+          <div class="space-y-3 text-xs">
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="map-pin" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i>
+              <span>404 Royal Oak Blvd, Suite 200, Mayfair, London</span>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="mail" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i>
+              <a href="mailto:concierge@luminaclinic.com" class="hover:text-gold transition-colors">concierge@luminaclinic.com</a>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="phone" class="w-4 h-4 text-gold shrink-0 mt-0.5"></i>
+              <a href="tel:+442079460192" class="hover:text-gold transition-colors font-mono font-bold">+44 20 7946 0192</a>
+            </div>
+            <div class="flex items-start gap-2.5">
+              <i data-lucide="message-circle" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+              <a href="https://wa.me/442079460192" target="_blank" class="hover:text-gold transition-colors font-mono">WhatsApp VIP Concierge</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+        <p class="text-slateMist">
+          Copyright &copy; 2026 Lumina Aesthetics. All rights reserved.
+        </p>
+        <div class="flex items-center space-x-6 text-slateMist">
+          <a href="#" class="hover:text-gold transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-gold transition-colors">Terms of Treatment</a>
+          <a href="#contact" class="hover:text-gold transition-colors">Contact Concierge</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT: REVIEWS MANAGEMENT & ANIMATIONS                               -->
+  <!-- ========================================================================= -->
+  <script>
+    let selectedRating = 5;
+    let toastTimer = null;
+
+    const initialDefaultReviews = [
+      {
+        id: 'rev-1',
+        author: 'Sarah K.',
+        location: 'London Mayfair Suite',
+        treatment: 'Laser & Rejuvenation',
+        rating: 5,
+        title: 'Skin texture transformed in just 3 sessions',
+        comment: 'The consultation with Dr. Elena Vance was thorough and personalized. The fractional picosecond protocol restored my skin clarity without downtime.',
+        date: '2 days ago'
+      },
+      {
+        id: 'rev-2',
+        author: 'Lady Camilla Vance-Cross',
+        location: 'Mayfair VIP Clinic',
+        treatment: 'Visia 3D Diagnostic Consultation',
+        rating: 5,
+        title: 'Undetectable and supremely natural',
+        comment: 'Every medical detail was planned meticulously. The clinic ambience exudes serene luxury and clinical precision.',
+        date: '1 week ago'
+      },
+      {
+        id: 'rev-3',
+        author: 'Sheikh Tariq Al-Maktoum',
+        location: 'Dubai DIFC Clinic',
+        treatment: 'Clinical Dermatology',
+        rating: 5,
+        title: 'Outstanding barrier repair results',
+        comment: 'Dr. Vance cured persistent hyperpigmentation from sun exposure. Exceptional medical standards and aftercare concierge.',
+        date: '2 weeks ago'
+      },
+      {
+        id: 'rev-4',
+        author: 'Sophia Laurent',
+        location: 'London Mayfair Suite',
+        treatment: 'Injectables & Sculpting',
+        rating: 5,
+        title: 'Micro-neuromodulator artistry',
+        comment: 'Delicate anatomical placement. My facial expressions remain completely authentic and refreshed.',
+        date: '3 weeks ago'
+      }
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+
+      // Initialize Reviews in localStorage if empty
+      if (!localStorage.getItem('lumina_patient_reviews')) {
+        localStorage.setItem('lumina_patient_reviews', JSON.stringify(initialDefaultReviews));
+      }
+
+      renderReviewsList();
+
+      // Intersection Observer for scroll animations
+      const revealElements = document.querySelectorAll('.reveal-init');
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+    });
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    function toggleReviewDrawer() {
+      const drawer = document.getElementById('review-submission-drawer');
+      const isHidden = drawer.classList.contains('hidden');
+      if (isHidden) {
+        drawer.classList.remove('hidden');
+        document.getElementById('drawer-btn-label').innerText = 'Close Form';
+        document.getElementById('review-author').focus();
+      } else {
+        drawer.classList.add('hidden');
+        document.getElementById('drawer-btn-label').innerText = 'Share Your Review';
+      }
+    }
+
+    function openReviewDrawer() {
+      const drawer = document.getElementById('review-submission-drawer');
+      drawer.classList.remove('hidden');
+      document.getElementById('drawer-btn-label').innerText = 'Close Form';
+      drawer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function closeReviewDrawer() {
+      const drawer = document.getElementById('review-submission-drawer');
+      drawer.classList.add('hidden');
+      document.getElementById('drawer-btn-label').innerText = 'Share Your Review';
+    }
+
+    function setRating(rating) {
+      selectedRating = rating;
+      const buttons = document.querySelectorAll('.star-picker-btn');
+      const ratingLabel = document.getElementById('selected-rating-label');
+
+      buttons.forEach((btn, idx) => {
+        const starIcon = btn.querySelector('svg') || btn.querySelector('i');
+        if (idx < rating) {
+          btn.classList.add('text-gold');
+          btn.classList.remove('text-slateMist');
+        } else {
+          btn.classList.remove('text-gold');
+          btn.classList.add('text-slateMist');
+        }
+      });
+
+      const labels = {
+        1: '1 Star (Needs Improvement)',
+        2: '2 Stars (Fair)',
+        3: '3 Stars (Good)',
+        4: '4 Stars (Very Satisfied)',
+        5: '5 Stars (Exceptional Experience)'
+      };
+      ratingLabel.innerText = labels[rating] || `${rating} Stars`;
+    }
+
+    function getReviews() {
+      try {
+        const stored = localStorage.getItem('lumina_patient_reviews');
+        return stored ? JSON.parse(stored) : initialDefaultReviews;
+      } catch (e) {
+        return initialDefaultReviews;
+      }
+    }
+
+    function renderReviewsList() {
+      const reviews = getReviews();
+      const container = document.getElementById('patient-reviews-grid');
+      const totalCountEl = document.getElementById('reviews-total-count');
+      const avgRatingEl = document.getElementById('reviews-avg-rating');
+      const heroStarAvg = document.getElementById('hero-star-avg');
+      const heroReviewCount = document.getElementById('hero-review-count');
+
+      // Update counters
+      const total = reviews.length;
+      const sum = reviews.reduce((acc, r) => acc + (r.rating || 5), 0);
+      const avg = total > 0 ? (sum / total).toFixed(1) : '5.0';
+
+      if (totalCountEl) totalCountEl.innerText = total;
+      if (avgRatingEl) avgRatingEl.innerText = `${avg} / 5.0`;
+      if (heroStarAvg) heroStarAvg.innerText = `★ ${avg}/5 Rating`;
+      if (heroReviewCount) heroReviewCount.innerText = `From ${total} verified patients across London & Dubai`;
+
+      // Build review card HTML
+      container.innerHTML = reviews.map(rev => {
+        const starsHtml = Array.from({ length: 5 }, (_, i) => {
+          const isFilled = i < rev.rating;
+          return `<svg class="w-4 h-4 ${isFilled ? 'fill-gold text-gold' : 'text-gray-300'}" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+        }).join('');
+
+        return `
+          <div class="bg-white border border-gold/20 hover:border-gold rounded-2xl p-6 sm:p-7 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1 text-gold">
+                  ${starsHtml}
+                </div>
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <svg class="w-3 h-3 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Verified Patient</span>
+                </span>
+              </div>
+
+              ${rev.title ? `<h4 class="font-serif text-lg font-bold text-obsidian group-hover:text-gold transition-colors leading-snug">${rev.title}</h4>` : ''}
+
+              <blockquote class="text-slateMist text-xs sm:text-sm leading-relaxed italic">
+                “${rev.comment}”
+              </blockquote>
+            </div>
+
+            <div class="pt-5 mt-5 border-t border-gray-100 flex items-center justify-between text-xs">
+              <div>
+                <p class="font-bold text-obsidian text-sm">${rev.author}</p>
+                <p class="text-[10px] text-slateMist uppercase tracking-wider font-semibold">${rev.treatment || 'Clinical Protocol'}</p>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] text-slateMist block">${rev.location || 'London Mayfair'}</span>
+                <span class="text-[10px] text-gold font-medium">${rev.date || 'Recent'}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function showReviewToast(author) {
+      const toast = document.getElementById('review-toast');
+      const msg = document.getElementById('review-toast-msg');
+      msg.innerText = `Thank you, ${author}! Your review is now published live for everyone to see.`;
+
+      toast.classList.remove('translate-x-40', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-x-0', 'opacity-100');
+
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.add('translate-x-40', 'opacity-0', 'pointer-events-none');
+        toast.classList.remove('translate-x-0', 'opacity-100');
+      }, 5000);
+    }
+
+    function handleReviewSubmit(event) {
+      event.preventDefault();
+
+      const author = document.getElementById('review-author').value.trim() || 'Verified Patient';
+      const treatment = document.getElementById('review-treatment').value;
+      const location = document.getElementById('review-location').value.trim() || 'London Mayfair Suite';
+      const title = document.getElementById('review-title').value.trim() || 'Exceptional Treatment';
+      const comment = document.getElementById('review-comment').value.trim();
+
+      const newReview = {
+        id: 'rev-' + Date.now(),
+        author: author,
+        location: location,
+        treatment: treatment,
+        rating: selectedRating,
+        title: title,
+        comment: comment,
+        date: 'Just now'
+      };
+
+      const reviews = getReviews();
+      reviews.unshift(newReview);
+      localStorage.setItem('lumina_patient_reviews', JSON.stringify(reviews));
+
+      // Reset form and close drawer
+      document.getElementById('review-author').value = '';
+      document.getElementById('review-title').value = '';
+      document.getElementById('review-comment').value = '';
+      document.getElementById('review-location').value = '';
+      closeReviewDrawer();
+
+      // Render updated reviews with new submission at the top
+      renderReviewsList();
+      showReviewToast(author);
+
+      // Smooth scroll to reviews grid
+      document.getElementById('reviews').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  </script>
+
+</body>
+</html>

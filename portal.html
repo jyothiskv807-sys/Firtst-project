@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumina Aesthetics | Clinic Consultation Staff Portal</title>
+
+  <!-- Google Fonts: Playfair Display & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              DEFAULT: '#C5A880',
+              50: '#FAF7F2',
+              100: '#F4ECE1',
+              200: '#E8D9C3',
+              300: '#DCC6A5',
+              400: '#D0B78B',
+              500: '#C5A880',
+              600: '#B08E60',
+              700: '#8C6F45',
+            },
+            obsidian: {
+              DEFAULT: '#121417',
+              surface: '#1A1D22',
+              card: '#16191E',
+              border: '#2A2E37',
+            },
+            alabaster: '#F8F6F2',
+            slateMist: '#7A7D84',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #121417; }
+    ::-webkit-scrollbar-thumb { background: #C5A880; border-radius: 3px; }
+  </style>
+</head>
+
+<body class="bg-obsidian text-alabaster font-sans antialiased min-h-screen selection:bg-gold selection:text-obsidian flex flex-col justify-between relative">
+
+  <!-- ========================================================================= -->
+  <!-- TOAST NOTIFICATION BANNER                                                 -->
+  <!-- ========================================================================= -->
+  <div id="clinic-toast" class="fixed top-5 right-5 z-50 bg-obsidian-surface border border-gold/50 rounded-2xl p-4 shadow-2xl transition-all duration-300 transform translate-x-32 opacity-0 pointer-events-none max-w-sm">
+    <div class="flex items-center gap-3">
+      <div id="toast-icon-box" class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+        <i data-lucide="check" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <p id="toast-title" class="text-xs font-bold text-alabaster">Action Completed</p>
+        <p id="toast-msg" class="text-[11px] text-slateMist">Status updated and SMS dispatched.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 1. CLINIC STAFF LOGIN GATE SCREEN                                         -->
+  <!-- ========================================================================= -->
+  <div id="login-gate" class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-md w-full bg-obsidian-card border border-gold/30 rounded-3xl p-8 sm:p-10 shadow-2xl relative z-10 space-y-8">
+      
+      <div class="text-center space-y-3">
+        <div class="w-14 h-14 rounded-2xl bg-obsidian-surface border border-gold/40 mx-auto flex items-center justify-center text-gold shadow-lg shadow-gold/10">
+          <i data-lucide="shield-check" class="w-7 h-7"></i>
+        </div>
+        <div>
+          <span class="text-[10px] uppercase font-bold tracking-[0.25em] text-gold">Clinical Management Suite</span>
+          <h1 class="font-serif text-3xl font-bold text-alabaster mt-1">Lumina Portal</h1>
+        </div>
+        <p class="text-xs text-slateMist leading-relaxed">
+          Authorized access only for Dr. Elena Vance &amp; Consultation Coordination Team.
+        </p>
+      </div>
+
+      <!-- Demo Credentials Quick-Assist Card -->
+      <div class="bg-gold/10 border border-gold/30 rounded-2xl p-4 text-xs space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-gold flex items-center gap-1.5">
+            <i data-lucide="key" class="w-3.5 h-3.5"></i>
+            <span>Demo Access Credentials</span>
+          </span>
+          <button onclick="autoFillCredentials()" class="text-[10px] uppercase font-bold bg-gold text-obsidian px-2.5 py-1 rounded-md hover:bg-gold-400 transition-colors">
+            Auto-Fill
+          </button>
+        </div>
+        <div class="text-[11px] text-alabaster/90 space-y-1 font-mono">
+          <div><span class="text-slateMist">Staff Email:</span> <strong class="text-alabaster">admin@luminaclinic.com</strong></div>
+          <div><span class="text-slateMist">Passcode PIN:</span> <strong class="text-gold">8800</strong> (or pass: <strong>lumina2026</strong>)</div>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form onsubmit="handleClinicLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs uppercase font-bold tracking-wider text-slateMist mb-1.5">Staff Email</label>
+          <div class="relative">
+            <i data-lucide="mail" class="w-4 h-4 text-slateMist absolute left-3.5 top-3.5"></i>
+            <input required id="login-email" type="email" placeholder="admin@luminaclinic.com" class="w-full pl-10 pr-4 py-3 rounded-xl bg-obsidian-surface border border-obsidian-border text-alabaster text-sm focus:outline-none focus:border-gold transition-colors" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase font-bold tracking-wider text-slateMist mb-1.5">Staff Passcode PIN</label>
+          <div class="relative">
+            <i data-lucide="lock" class="w-4 h-4 text-slateMist absolute left-3.5 top-3.5"></i>
+            <input required id="login-pass" type="password" placeholder="8800" class="w-full pl-10 pr-4 py-3 rounded-xl bg-obsidian-surface border border-obsidian-border text-alabaster text-sm focus:outline-none focus:border-gold transition-colors" />
+          </div>
+        </div>
+
+        <div id="login-error" class="hidden text-xs text-rose-400 bg-rose-500/10 border border-rose-500/30 rounded-lg p-2.5 text-center">
+          Invalid credentials. Please use Email: <strong>admin@luminaclinic.com</strong> and PIN: <strong>8800</strong>.
+        </div>
+
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-gold text-obsidian font-bold text-xs uppercase tracking-widest hover:bg-gold-400 transition-all duration-200 shadow-md shadow-gold/20 flex items-center justify-center gap-2">
+          <span>Authenticate &amp; Open Portal</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </form>
+
+      <div class="text-center pt-2">
+        <a href="/index.html" class="text-xs text-slateMist hover:text-gold transition-colors inline-flex items-center gap-1.5">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Return to Public Website</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 2. CLINIC CONSULTATION DASHBOARD                                          -->
+  <!-- ========================================================================= -->
+  <div id="dashboard-view" class="hidden min-h-screen flex-col">
+    
+    <!-- Top Navigation Bar -->
+    <header class="bg-obsidian-card border-b border-obsidian-border sticky top-0 z-30 px-4 sm:px-8 py-3.5">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        
+        <div class="flex items-center gap-3">
+          <a href="/index.html" class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-gold text-obsidian flex items-center justify-center font-bold">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 12l10 10 10-12L12 2z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="font-serif text-lg font-bold tracking-widest text-alabaster block leading-none">LUMINA</span>
+              <span class="text-[9px] uppercase tracking-widest text-gold font-semibold">Clinic Portal</span>
+            </div>
+          </a>
+
+          <div class="hidden md:flex items-center ml-4 pl-4 border-l border-obsidian-border text-xs text-slateMist gap-2">
+            <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>SMS Dispatch &amp; Live Sync Active</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="/index.html" target="_blank" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-obsidian-border text-xs text-slateMist hover:text-alabaster hover:border-gold transition-colors">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>Patient Booking Page</span>
+          </a>
+
+          <div class="flex items-center gap-2.5 pl-3 border-l border-obsidian-border">
+            <div class="w-8 h-8 rounded-full bg-gold/20 text-gold flex items-center justify-center font-bold text-xs">
+              EV
+            </div>
+            <div class="hidden md:block text-left">
+              <p class="text-xs font-bold text-alabaster leading-none">Dr. Elena Vance, MD</p>
+              <p class="text-[10px] text-slateMist">Medical Director</p>
+            </div>
+            <button onclick="handleClinicLogout()" class="p-2 rounded-lg text-slateMist hover:text-rose-400 hover:bg-rose-500/10 transition-colors ml-1" title="Sign Out">
+              <i data-lucide="log-out" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Dashboard Body -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-8 py-8 space-y-8">
+      
+      <!-- Banner -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-obsidian-card via-obsidian-surface to-obsidian-card border border-gold/20 rounded-2xl p-6 shadow-xl">
+        <div class="space-y-1">
+          <span class="text-xs uppercase font-bold tracking-widest text-gold">Global Patient Coordination</span>
+          <h2 class="font-serif text-2xl sm:text-3xl text-alabaster font-medium">Consultation Intake &amp; SMS Dispatch</h2>
+          <p class="text-xs text-slateMist">Click <span class="text-emerald-400 font-bold">"✓ Confirm Appt"</span> on any request to instantly confirm the appointment and send the mobile SMS notification.</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button onclick="seedDemoPatients()" class="px-4 py-2 rounded-xl bg-gold/15 border border-gold/40 text-gold hover:bg-gold hover:text-obsidian text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Load Worldwide Demos</span>
+          </button>
+          <button onclick="openWalkinModal()" class="px-4 py-2 rounded-xl bg-gold text-obsidian hover:bg-gold-400 text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-sm">
+            <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+            <span>Add Patient Intake</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Stat Metrics Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="bg-obsidian-card border border-obsidian-border rounded-2xl p-5 space-y-2">
+          <div class="flex items-center justify-between text-slateMist">
+            <span class="text-xs font-bold uppercase tracking-wider">Total Consultations</span>
+            <i data-lucide="users" class="w-4 h-4 text-gold"></i>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="stat-total" class="font-serif text-3xl font-bold text-alabaster">0</span>
+            <span class="text-[10px] text-slateMist font-medium">Registered</span>
+          </div>
+        </div>
+
+        <div class="bg-obsidian-card border border-gold/30 rounded-2xl p-5 space-y-2 relative overflow-hidden">
+          <div class="flex items-center justify-between text-slateMist">
+            <span class="text-xs font-bold uppercase tracking-wider text-gold">Pending Action</span>
+            <i data-lucide="clock" class="w-4 h-4 text-gold"></i>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="stat-pending" class="font-serif text-3xl font-bold text-gold">0</span>
+            <span class="text-[10px] text-gold/80 font-medium">Awaiting Triage</span>
+          </div>
+        </div>
+
+        <div class="bg-obsidian-card border border-obsidian-border rounded-2xl p-5 space-y-2">
+          <div class="flex items-center justify-between text-slateMist">
+            <span class="text-xs font-bold uppercase tracking-wider">Confirmed Appts</span>
+            <i data-lucide="calendar-check" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="stat-confirmed" class="font-serif text-3xl font-bold text-emerald-400">0</span>
+            <span class="text-[10px] text-slateMist font-medium">Scheduled</span>
+          </div>
+        </div>
+
+        <div class="bg-obsidian-card border border-obsidian-border rounded-2xl p-5 space-y-2">
+          <div class="flex items-center justify-between text-slateMist">
+            <span class="text-xs font-bold uppercase tracking-wider">Est. Pipeline</span>
+            <i data-lucide="badge-dollar-sign" class="w-4 h-4 text-gold"></i>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <span id="stat-revenue" class="font-serif text-3xl font-bold text-alabaster">$0</span>
+            <span class="text-[10px] text-slateMist font-medium">Treatment Value</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Search, Filters, & Table Container -->
+      <div class="bg-obsidian-card border border-obsidian-border rounded-2xl p-5 sm:p-6 space-y-6 shadow-xl">
+        
+        <!-- Controls Toolbar -->
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          
+          <!-- Search Bar -->
+          <div class="relative flex-1 max-w-md">
+            <i data-lucide="search" class="w-4 h-4 text-slateMist absolute left-3.5 top-3.5"></i>
+            <input 
+              id="search-input" 
+              oninput="renderPatientTable()" 
+              type="text" 
+              placeholder="Search by patient name, country code (+91, +1, +44), email, or Ref ID..." 
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-obsidian-surface border border-obsidian-border text-alabaster placeholder-slateMist/60 text-xs focus:outline-none focus:border-gold transition-colors"
+            />
+          </div>
+
+          <!-- Status Filter Tabs -->
+          <div class="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+            <button onclick="setFilter('ALL')" id="filter-btn-ALL" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-gold text-obsidian transition-colors">
+              All (<span id="count-all">0</span>)
+            </button>
+            <button onclick="setFilter('New Request')" id="filter-btn-NEW" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-obsidian-surface text-slateMist hover:text-alabaster transition-colors">
+              New (<span id="count-new">0</span>)
+            </button>
+            <button onclick="setFilter('Confirmed')" id="filter-btn-CONFIRMED" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-obsidian-surface text-slateMist hover:text-alabaster transition-colors">
+              Confirmed (<span id="count-confirmed">0</span>)
+            </button>
+            <button onclick="setFilter('Completed')" id="filter-btn-COMPLETED" class="filter-tab px-3.5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-obsidian-surface text-slateMist hover:text-alabaster transition-colors">
+              Completed (<span id="count-completed">0</span>)
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Table View with 1-Click Action Buttons -->
+        <div class="overflow-x-auto rounded-xl border border-obsidian-border">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-obsidian-surface border-b border-obsidian-border text-slateMist uppercase tracking-wider font-bold text-[10px]">
+              <tr>
+                <th class="py-3.5 px-4">Ref ID</th>
+                <th class="py-3.5 px-4">Patient Profile</th>
+                <th class="py-3.5 px-4">Mobile &amp; SMS Status</th>
+                <th class="py-3.5 px-4">Treatment Requested</th>
+                <th class="py-3.5 px-4">Preferred Date</th>
+                <th class="py-3.5 px-4">Status</th>
+                <th class="py-3.5 px-4 text-right">Quick Actions</th>
+              </tr>
+            </thead>
+            <tbody id="patient-table-body" class="divide-y divide-obsidian-border">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State -->
+        <div id="table-empty-state" class="hidden text-center py-12 space-y-3">
+          <div class="w-12 h-12 rounded-full bg-obsidian-surface border border-obsidian-border text-slateMist flex items-center justify-center mx-auto">
+            <i data-lucide="inbox" class="w-6 h-6"></i>
+          </div>
+          <p class="text-sm text-alabaster font-serif">No consultation bookings found</p>
+          <p class="text-xs text-slateMist max-w-sm mx-auto">Try testing as a patient on the public landing page with any worldwide phone number (+91, +1, +44, +971, etc.).</p>
+          <button onclick="seedDemoPatients()" class="px-4 py-2 rounded-xl bg-gold text-obsidian font-bold text-xs uppercase tracking-wider hover:bg-gold-400">
+            Seed Demo Patients
+          </button>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 3. PATIENT DETAIL / CLINICAL CHART & SMS DISPATCH MODAL                   -->
+  <!-- ========================================================================= -->
+  <div id="patient-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-obsidian-card border border-gold/30 rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl text-alabaster space-y-6 max-h-[90vh] overflow-y-auto">
+      
+      <!-- Drawer Header -->
+      <div class="flex justify-between items-start border-b border-obsidian-border pb-4">
+        <div>
+          <div class="flex items-center gap-2 text-gold text-xs font-bold uppercase tracking-widest">
+            <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+            <span>Patient Consultation Chart</span>
+          </div>
+          <h3 id="modal-patient-name" class="font-serif text-2xl text-alabaster mt-1">Sophia Laurent</h3>
+          <p id="modal-booking-ref" class="text-xs text-slateMist font-mono mt-0.5">Booking Ref: LUM-8924</p>
+        </div>
+        <button onclick="closePatientModal()" class="text-slateMist hover:text-alabaster p-1 rounded-lg hover:bg-obsidian-surface transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Patient Bio & Contact Matrix -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
+        <div class="bg-obsidian-surface border border-obsidian-border rounded-xl p-4 space-y-3 text-xs">
+          <span class="text-[10px] uppercase font-bold tracking-wider text-slateMist">Contact Information</span>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-gold"></i>
+              <a id="modal-patient-email" href="#" class="text-alabaster hover:text-gold transition-colors font-medium"></a>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="phone" class="w-3.5 h-3.5 text-gold"></i>
+              <a id="modal-patient-phone" href="#" class="text-alabaster hover:text-gold transition-colors font-bold font-mono"></a>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="clock" class="w-3.5 h-3.5 text-gold"></i>
+              <span id="modal-patient-timestamp" class="text-slateMist"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-obsidian-surface border border-obsidian-border rounded-xl p-4 space-y-3 text-xs">
+          <span class="text-[10px] uppercase font-bold tracking-wider text-slateMist">Treatment &amp; Schedule</span>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-slateMist">Procedure:</span>
+              <span id="modal-patient-treatment" class="font-bold text-gold"></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slateMist">Requested Date:</span>
+              <span id="modal-patient-date" class="font-bold text-alabaster"></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slateMist">Assigned MD:</span>
+              <span class="font-medium text-alabaster">Dr. Elena Vance, MD</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Mobile SMS & WhatsApp Dispatch Widget -->
+      <div class="bg-gradient-to-r from-obsidian-surface via-obsidian-card to-obsidian-surface border border-gold/30 rounded-xl p-4 space-y-3 text-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] uppercase font-bold tracking-wider text-gold flex items-center gap-1.5">
+            <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+            <span>Mobile SMS &amp; Messaging Gateway</span>
+          </span>
+          <span id="modal-sms-badge" class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
+            ✓ SMS Confirmation Dispatched
+          </span>
+        </div>
+
+        <div id="modal-sms-preview" class="bg-obsidian-surface border border-obsidian-border rounded-lg p-3 text-xs text-alabaster/90 italic leading-relaxed font-mono">
+          “✨ Lumina Aesthetics: Dear patient, your consultation is scheduled with Dr. Elena Vance.”
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          <button onclick="dispatchDirectSms()" class="px-3.5 py-1.5 rounded-lg bg-gold/15 border border-gold text-gold text-xs font-bold uppercase tracking-wider hover:bg-gold hover:text-obsidian transition-colors flex items-center gap-1.5">
+            <i data-lucide="send" class="w-3 h-3"></i>
+            <span>Re-Send SMS Alert</span>
+          </button>
+          <a id="modal-whatsapp-link" target="_blank" href="#" class="px-3.5 py-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500 text-emerald-400 text-xs font-bold uppercase tracking-wider hover:bg-emerald-500 hover:text-obsidian transition-colors flex items-center gap-1.5">
+            <i data-lucide="message-circle" class="w-3 h-3"></i>
+            <span>Open WhatsApp Chat</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Patient Skin Notes & Goals -->
+      <div class="space-y-2">
+        <label class="text-xs uppercase font-bold tracking-wider text-slateMist">Patient Stated Skin Goals &amp; Concerns</label>
+        <div id="modal-patient-notes" class="bg-obsidian-surface border border-obsidian-border rounded-xl p-4 text-xs text-alabaster/90 leading-relaxed font-sans italic"></div>
+      </div>
+
+      <!-- Status Update Selector (With Big Prominent Confirm Button) -->
+      <div class="space-y-2">
+        <label class="text-xs uppercase font-bold tracking-wider text-slateMist">Manage Consultation Status</label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button onclick="updateActivePatientStatus('Confirmed')" class="px-3 py-2.5 rounded-lg bg-emerald-500 text-obsidian font-bold text-xs uppercase tracking-wider hover:bg-emerald-400 flex items-center justify-center gap-1.5 shadow-md">
+            <i data-lucide="check" class="w-4 h-4"></i>
+            <span>Confirm Appt</span>
+          </button>
+          <button onclick="updateActivePatientStatus('Completed')" class="px-3 py-2.5 rounded-lg border border-sky-500/50 bg-sky-500/15 text-sky-300 text-xs font-bold uppercase tracking-wider hover:bg-sky-500 hover:text-obsidian transition-colors flex items-center justify-center gap-1.5">
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+            <span>Completed</span>
+          </button>
+          <button onclick="updateActivePatientStatus('New Request')" class="px-3 py-2.5 rounded-lg border border-gold/40 text-gold text-xs font-bold uppercase tracking-wider hover:bg-gold/15">
+            Mark New
+          </button>
+          <button onclick="updateActivePatientStatus('Cancelled')" class="px-3 py-2.5 rounded-lg border border-rose-500/40 text-rose-400 text-xs font-bold uppercase tracking-wider hover:bg-rose-500/15">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="flex items-center justify-between pt-4 border-t border-obsidian-border">
+        <button onclick="deleteActivePatient()" class="text-xs text-rose-400 hover:text-rose-300 font-semibold flex items-center gap-1.5">
+          <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          <span>Delete Record</span>
+        </button>
+
+        <div class="flex items-center gap-2">
+          <button onclick="closePatientModal()" class="px-5 py-2.5 rounded-xl bg-obsidian-surface border border-obsidian-border text-slateMist hover:text-alabaster text-xs font-bold uppercase tracking-wider">
+            Close Chart
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 4. WALK-IN / MANUAL PATIENT INTAKE MODAL                                  -->
+  <!-- ========================================================================= -->
+  <div id="walkin-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-obsidian-card border border-gold/30 rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl text-alabaster space-y-4">
+      <div class="flex justify-between items-start border-b border-obsidian-border pb-3">
+        <div>
+          <span class="text-[10px] uppercase font-bold tracking-widest text-gold">Clinic Intake</span>
+          <h3 class="font-serif text-2xl text-alabaster">Manual Patient Registration</h3>
+        </div>
+        <button onclick="closeWalkinModal()" class="text-slateMist hover:text-alabaster">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="handleManualIntake(event)" class="space-y-4 pt-2 text-xs">
+        <div>
+          <label class="block uppercase font-bold text-slateMist mb-1">Full Name</label>
+          <input required id="walkin-name" type="text" placeholder="e.g. Lady Vivienne Montgomery" class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-surface border border-obsidian-border text-alabaster focus:outline-none focus:border-gold text-sm" />
+        </div>
+
+        <div>
+          <label class="block uppercase font-bold text-slateMist mb-1">Email Address</label>
+          <input required id="walkin-email" type="email" placeholder="vivienne@montgomery.co.uk" class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-surface border border-obsidian-border text-alabaster focus:outline-none focus:border-gold text-sm" />
+        </div>
+
+        <div>
+          <label class="block uppercase font-bold text-slateMist mb-1">Mobile Number (Worldwide)</label>
+          <div class="flex rounded-lg overflow-hidden border border-obsidian-border bg-obsidian-surface focus-within:border-gold">
+            <select id="walkin-country-code" class="bg-obsidian-surface text-gold font-semibold text-xs py-2 px-2.5 border-r border-obsidian-border focus:outline-none max-w-[140px]">
+              <option value="+1">🇺🇸 +1 (US/CA)</option>
+              <option value="+91">🇮🇳 +91 (India)</option>
+              <option value="+44" selected>🇬🇧 +44 (UK)</option>
+              <option value="+971">🇦🇪 +971 (UAE)</option>
+              <option value="+33">🇫🇷 +33 (France)</option>
+              <option value="+49">🇩🇪 +49 (Germany)</option>
+              <option value="+41">🇨🇭 +41 (Switzerland)</option>
+              <option value="+61">🇦🇺 +61 (Australia)</option>
+              <option value="+65">🇸🇬 +65 (Singapore)</option>
+              <option value="+966">🇸🇦 +966 (Saudi)</option>
+              <option value="+81">🇯🇵 +81 (Japan)</option>
+            </select>
+            <input required id="walkin-phone" type="tel" placeholder="7946 0991" class="w-full px-3.5 py-2 bg-transparent text-alabaster focus:outline-none text-xs" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block uppercase font-bold text-slateMist mb-1">Treatment</label>
+            <select id="walkin-treatment" class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-surface border border-obsidian-border text-alabaster focus:outline-none focus:border-gold text-xs">
+              <option value="Laser & Rejuvenation">Laser &amp; Rejuvenation</option>
+              <option value="Clinical Dermatology">Clinical Dermatology</option>
+              <option value="Injectables & Sculpting">Injectables &amp; Sculpting</option>
+              <option value="Visia 3D Comprehensive Consultation">Visia 3D Comprehensive Consultation</option>
+            </select>
+          </div>
+          <div>
+            <label class="block uppercase font-bold text-slateMist mb-1">Date</label>
+            <input id="walkin-date" type="date" class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-surface border border-obsidian-border text-alabaster focus:outline-none focus:border-gold text-xs" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block uppercase font-bold text-slateMist mb-1">Clinical Assessment / Notes</label>
+          <textarea id="walkin-notes" rows="2" placeholder="Initial skin observations, allergies, or requested doctor..." class="w-full px-3.5 py-2.5 rounded-lg bg-obsidian-surface border border-obsidian-border text-alabaster focus:outline-none focus:border-gold text-xs"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl bg-gold text-obsidian font-bold text-xs uppercase tracking-widest hover:bg-gold-400 transition-all">
+          Save Patient &amp; Dispatch SMS
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT LOGIC & STATE MANAGEMENT                                       -->
+  <!-- ========================================================================= -->
+  <script>
+    let currentFilter = 'ALL';
+    let activePatientId = null;
+    let toastTimeout = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      
+      const isAuthenticated = sessionStorage.getItem('lumina_clinic_auth');
+      if (isAuthenticated === 'true') {
+        showDashboard();
+      } else {
+        showLoginGate();
+      }
+
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'lumina_patient_bookings') {
+          renderPatientTable();
+        }
+      });
+    });
+
+    function showToast(title, msg, isSuccess = true) {
+      const toast = document.getElementById('clinic-toast');
+      const titleEl = document.getElementById('toast-title');
+      const msgEl = document.getElementById('toast-msg');
+      const iconBox = document.getElementById('toast-icon-box');
+
+      titleEl.innerText = title;
+      msgEl.innerText = msg;
+      
+      if (isSuccess) {
+        iconBox.className = "w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0";
+      } else {
+        iconBox.className = "w-9 h-9 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0";
+      }
+
+      toast.classList.remove('translate-x-32', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-x-0', 'opacity-100');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('translate-x-32', 'opacity-0', 'pointer-events-none');
+        toast.classList.remove('translate-x-0', 'opacity-100');
+      }, 4000);
+    }
+
+    function showLoginGate() {
+      document.getElementById('login-gate').classList.remove('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('flex');
+    }
+
+    function showDashboard() {
+      document.getElementById('login-gate').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+      document.getElementById('dashboard-view').classList.add('flex');
+      renderPatientTable();
+      lucide.createIcons();
+    }
+
+    function autoFillCredentials() {
+      document.getElementById('login-email').value = 'admin@luminaclinic.com';
+      document.getElementById('login-pass').value = '8800';
+    }
+
+    function handleClinicLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const pass = document.getElementById('login-pass').value.trim();
+
+      if ((email.toLowerCase() === 'admin@luminaclinic.com' || email.toLowerCase() === 'doctor@luminaclinic.com') &&
+          (pass === '8800' || pass === 'lumina2026')) {
+        sessionStorage.setItem('lumina_clinic_auth', 'true');
+        document.getElementById('login-error').classList.add('hidden');
+        showDashboard();
+      } else {
+        document.getElementById('login-error').classList.remove('hidden');
+      }
+    }
+
+    function handleClinicLogout() {
+      sessionStorage.removeItem('lumina_clinic_auth');
+      showLoginGate();
+    }
+
+    function getBookings() {
+      try {
+        const stored = localStorage.getItem('lumina_patient_bookings');
+        return stored ? JSON.parse(stored) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveBookings(bookings) {
+      localStorage.setItem('lumina_patient_bookings', JSON.stringify(bookings));
+      renderPatientTable();
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-tab').forEach(btn => {
+        btn.classList.remove('bg-gold', 'text-obsidian');
+        btn.classList.add('bg-obsidian-surface', 'text-slateMist');
+      });
+
+      const activeBtn = document.getElementById(
+        filter === 'ALL' ? 'filter-btn-ALL' :
+        filter === 'New Request' ? 'filter-btn-NEW' :
+        filter === 'Confirmed' ? 'filter-btn-CONFIRMED' : 'filter-btn-COMPLETED'
+      );
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-obsidian-surface', 'text-slateMist');
+        activeBtn.classList.add('bg-gold', 'text-obsidian');
+      }
+      renderPatientTable();
+    }
+
+    // Direct 1-Click Quick Confirm from Table Row
+    function quickConfirmPatient(patientId) {
+      let bookings = getBookings();
+      let targetPatient = null;
+
+      bookings = bookings.map(b => {
+        if (b.id === patientId) {
+          targetPatient = b;
+          return { ...b, status: 'Confirmed', smsDeliveredAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) };
+        }
+        return b;
+      });
+
+      saveBookings(bookings);
+
+      if (targetPatient) {
+        showToast(
+          "Appointment Confirmed! ✨",
+          `Patient ${targetPatient.name} confirmed. SMS sent to ${targetPatient.phone}`
+        );
+      }
+    }
+
+    function renderPatientTable() {
+      const bookings = getBookings();
+      const searchQuery = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+      const tbody = document.getElementById('patient-table-body');
+      const emptyState = document.getElementById('table-empty-state');
+
+      const countAll = bookings.length;
+      const countNew = bookings.filter(b => b.status === 'New Request' || !b.status).length;
+      const countConfirmed = bookings.filter(b => b.status === 'Confirmed').length;
+      const countCompleted = bookings.filter(b => b.status === 'Completed').length;
+
+      document.getElementById('count-all').innerText = countAll;
+      document.getElementById('count-new').innerText = countNew;
+      document.getElementById('count-confirmed').innerText = countConfirmed;
+      document.getElementById('count-completed').innerText = countCompleted;
+
+      document.getElementById('stat-total').innerText = countAll;
+      document.getElementById('stat-pending').innerText = countNew;
+      document.getElementById('stat-confirmed').innerText = countConfirmed;
+      
+      const totalRevenue = bookings.reduce((sum, b) => {
+        const val = parseInt((b.estimatedFee || '$500').replace(/[^0-9]/g, '')) || 500;
+        return sum + val;
+      }, 0);
+      document.getElementById('stat-revenue').innerText = '$' + totalRevenue.toLocaleString();
+
+      let filtered = bookings;
+      if (currentFilter !== 'ALL') {
+        filtered = filtered.filter(b => (b.status || 'New Request') === currentFilter);
+      }
+      if (searchQuery) {
+        filtered = filtered.filter(b => 
+          (b.name && b.name.toLowerCase().includes(searchQuery)) ||
+          (b.email && b.email.toLowerCase().includes(searchQuery)) ||
+          (b.phone && b.phone.toLowerCase().includes(searchQuery)) ||
+          (b.id && b.id.toLowerCase().includes(searchQuery)) ||
+          (b.treatment && b.treatment.toLowerCase().includes(searchQuery))
+        );
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      tbody.innerHTML = filtered.map(b => {
+        const isConfirmed = b.status === 'Confirmed';
+        const isCompleted = b.status === 'Completed';
+        const isCancelled = b.status === 'Cancelled';
+
+        const statusClass = 
+          isConfirmed ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' :
+          isCompleted ? 'bg-sky-500/10 text-sky-400 border-sky-500/30' :
+          isCancelled ? 'bg-rose-500/10 text-rose-400 border-rose-500/30' :
+          'bg-gold/15 text-gold border-gold/30';
+
+        // Action Button: Direct Confirm button if not confirmed yet!
+        const actionButtonHtml = !isConfirmed && !isCompleted ? `
+          <button onclick="quickConfirmPatient('${b.id}')" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-obsidian text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1 shadow-sm">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i>
+            <span>Confirm</span>
+          </button>
+        ` : `
+          <span class="text-[11px] font-bold text-emerald-400 flex items-center gap-1">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+            <span>Scheduled</span>
+          </span>
+        `;
+
+        return `
+          <tr class="hover:bg-obsidian-surface/60 transition-colors">
+            <td class="py-4 px-4 font-mono font-bold text-gold text-xs">${b.id || 'LUM-1001'}</td>
+            <td class="py-4 px-4">
+              <div class="font-bold text-alabaster text-sm">${b.name}</div>
+              <div class="text-slateMist text-[11px]">${b.email}</div>
+            </td>
+            <td class="py-4 px-4">
+              <div class="font-mono font-bold text-alabaster text-xs">${b.phone}</div>
+              <div class="text-[10px] text-emerald-400 flex items-center gap-1">
+                <i data-lucide="smartphone" class="w-3 h-3"></i>
+                <span>SMS Dispatched</span>
+              </div>
+            </td>
+            <td class="py-4 px-4">
+              <span class="font-medium text-alabaster">${b.treatment}</span>
+              <div class="text-[10px] text-slateMist">Est. ${b.estimatedFee || '$500'}</div>
+            </td>
+            <td class="py-4 px-4 font-medium text-alabaster">${b.date || 'Flexible'}</td>
+            <td class="py-4 px-4">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold border uppercase tracking-wider ${statusClass}">
+                ${b.status || 'New Request'}
+              </span>
+            </td>
+            <td class="py-4 px-4 text-right">
+              <div class="flex items-center justify-end gap-1.5">
+                ${actionButtonHtml}
+                <button onclick="openPatientChart('${b.id}')" class="px-3 py-1.5 rounded-lg bg-obsidian-surface border border-obsidian-border hover:border-gold text-alabaster text-xs font-semibold hover:text-gold transition-colors">
+                  Chart
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function openPatientChart(patientId) {
+      const bookings = getBookings();
+      const patient = bookings.find(b => b.id === patientId);
+      if (!patient) return;
+
+      activePatientId = patientId;
+
+      document.getElementById('modal-patient-name').innerText = patient.name;
+      document.getElementById('modal-booking-ref').innerText = `Booking Ref: ${patient.id}`;
+      
+      const emailEl = document.getElementById('modal-patient-email');
+      emailEl.innerText = patient.email;
+      emailEl.href = `mailto:${patient.email}?subject=Lumina%20Aesthetics%20Consultation%20Confirmation%20(${patient.id})`;
+
+      const phoneEl = document.getElementById('modal-patient-phone');
+      phoneEl.innerText = patient.phone;
+      phoneEl.href = `tel:${patient.phone}`;
+
+      document.getElementById('modal-patient-timestamp').innerText = `Intake: ${patient.timestamp || 'Today'}`;
+      document.getElementById('modal-patient-treatment').innerText = patient.treatment;
+      document.getElementById('modal-patient-date').innerText = patient.date;
+      document.getElementById('modal-patient-notes').innerText = patient.notes || 'No specific concerns noted during request.';
+
+      document.getElementById('modal-sms-preview').innerText = `“✨ Lumina Aesthetics: Dear ${patient.name}, your appointment (Ref: ${patient.id}) for ${patient.treatment} with Dr. Elena Vance is confirmed for ${patient.date}.”`;
+
+      const cleanPhone = (patient.phone || '').replace(/[^0-9]/g, '');
+      const waLink = document.getElementById('modal-whatsapp-link');
+      waLink.href = `https://api.whatsapp.com/send?phone=${cleanPhone}&text=Dear%20${encodeURIComponent(patient.name)},%20this%20is%20Lumina%20Aesthetics%20Clinic%20confirming%20your%20consultation%20(Ref:%20${patient.id})%20on%20${patient.date}.`;
+
+      const modal = document.getElementById('patient-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      lucide.createIcons();
+    }
+
+    function dispatchDirectSms() {
+      if (!activePatientId) return;
+      const bookings = getBookings();
+      const patient = bookings.find(b => b.id === activePatientId);
+      if (patient) {
+        showToast("SMS Dispatched 📲", `Notification delivered to ${patient.phone}`);
+      }
+    }
+
+    function closePatientModal() {
+      const modal = document.getElementById('patient-modal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      activePatientId = null;
+    }
+
+    function updateActivePatientStatus(newStatus) {
+      if (!activePatientId) return;
+      let bookings = getBookings();
+      let targetPatient = null;
+      bookings = bookings.map(b => {
+        if (b.id === activePatientId) {
+          targetPatient = b;
+          return { ...b, status: newStatus };
+        }
+        return b;
+      });
+      saveBookings(bookings);
+      closePatientModal();
+
+      if (targetPatient) {
+        showToast(`Status: ${newStatus}`, `Patient ${targetPatient.name} marked as ${newStatus}`);
+      }
+    }
+
+    function deleteActivePatient() {
+      if (!activePatientId) return;
+      if (confirm("Are you sure you want to remove this patient consultation record?")) {
+        let bookings = getBookings();
+        bookings = bookings.filter(b => b.id !== activePatientId);
+        saveBookings(bookings);
+        closePatientModal();
+        showToast("Record Removed", "Patient consultation removed from schedule", false);
+      }
+    }
+
+    function openWalkinModal() {
+      const modal = document.getElementById('walkin-modal');
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      document.getElementById('walkin-date').value = tomorrow.toISOString().split('T')[0];
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeWalkinModal() {
+      const modal = document.getElementById('walkin-modal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function handleManualIntake(event) {
+      event.preventDefault();
+      const name = document.getElementById('walkin-name').value.trim();
+      const email = document.getElementById('walkin-email').value.trim();
+      const countryCode = document.getElementById('walkin-country-code').value;
+      const rawPhone = document.getElementById('walkin-phone').value.trim();
+      const fullPhone = `${countryCode} ${rawPhone}`;
+      const treatment = document.getElementById('walkin-treatment').value;
+      const date = document.getElementById('walkin-date').value;
+      const notes = document.getElementById('walkin-notes').value.trim();
+
+      const newBooking = {
+        id: 'LUM-' + Math.floor(1000 + Math.random() * 9000),
+        name: name,
+        email: email,
+        phone: fullPhone,
+        countryCode: countryCode,
+        treatment: treatment,
+        date: date,
+        notes: notes || 'Walk-in / Phone reservation entered by clinic staff.',
+        status: 'Confirmed',
+        timestamp: new Date().toLocaleString(),
+        smsSent: true,
+        estimatedFee: treatment.includes('Laser') ? '$650' : treatment.includes('Clinical') ? '$350' : treatment.includes('Injectables') ? '$850' : '$250'
+      };
+
+      const bookings = getBookings();
+      bookings.unshift(newBooking);
+      saveBookings(bookings);
+      closeWalkinModal();
+      showToast("Patient Added", `New intake created for ${name}`);
+    }
+
+    function seedDemoPatients() {
+      const demoData = [
+        {
+          id: 'LUM-9412',
+          name: 'Aanya Sharma',
+          email: 'aanya.sharma@mumbai-ventures.in',
+          phone: '+91 98201 45892',
+          countryCode: '+91',
+          treatment: 'Laser & Rejuvenation',
+          date: '2026-08-29',
+          notes: 'Interested in Pico Laser tone correction and melasma protocol before wedding season.',
+          status: 'New Request',
+          timestamp: 'Today at 10:30 AM',
+          estimatedFee: '$650'
+        },
+        {
+          id: 'LUM-8320',
+          name: 'Sophia Laurent',
+          email: 'sophia.laurent@example.com',
+          phone: '+1 (555) 234-8901',
+          countryCode: '+1',
+          treatment: 'Injectables & Sculpting',
+          date: '2026-08-30',
+          notes: 'Subtle micro-neuromodulator treatment and jawline harmonization.',
+          status: 'Confirmed',
+          timestamp: 'Yesterday at 4:15 PM',
+          estimatedFee: '$850'
+        },
+        {
+          id: 'LUM-7104',
+          name: 'Sheikh Tariq Al-Maktoum',
+          email: 'tariq.almaktoum@dubaiholdings.ae',
+          phone: '+971 50 123 4567',
+          countryCode: '+971',
+          treatment: 'Clinical Dermatology',
+          date: '2026-09-02',
+          notes: 'Barrier repair protocol and medical grade resurfacing evaluation.',
+          status: 'Confirmed',
+          timestamp: '2 days ago',
+          estimatedFee: '$350'
+        },
+        {
+          id: 'LUM-6591',
+          name: 'Lady Camilla Vance-Cross',
+          email: 'camilla.vc@heritage-group.co.uk',
+          phone: '+44 20 7946 0192',
+          countryCode: '+44',
+          treatment: 'Visia 3D Comprehensive Consultation',
+          date: '2026-08-28',
+          notes: 'Full cellular dermal diagnostics and bespoke annual maintenance plan.',
+          status: 'Completed',
+          timestamp: '3 days ago',
+          estimatedFee: '$250'
+        }
+      ];
+
+      saveBookings(demoData);
+      showToast("Demo Data Loaded", "4 worldwide patient records loaded");
+    }
+  </script>
+
+</body>
+</html>

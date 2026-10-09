@@ -1,0 +1,13 @@
+{
+  "name": "lumina-aesthetics",
+  "version": "1.0.0",
+  "description": "Lumina Aesthetics luxury dermatology & medical aesthetics platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
