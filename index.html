@@ -982,14 +982,39 @@
 
       </div>
 
-      <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+      <!-- Clinic Member & Staff Access VIP Card -->
+      <div class="my-8 bg-obsidian-surface/60 border border-gold/25 hover:border-gold/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 flex flex-col md:flex-row items-center justify-between gap-5 backdrop-blur-sm">
+        <div class="flex items-center gap-4 text-left">
+          <div class="w-12 h-12 rounded-xl bg-gold/15 border border-gold/40 text-gold flex items-center justify-center shrink-0 shadow-lg shadow-gold/10">
+            <i data-lucide="shield-check" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h5 class="text-sm font-bold text-alabaster tracking-wider uppercase font-serif">Clinic Member &amp; Staff Portal</h5>
+              <span class="px-2 py-0.5 text-[9px] font-mono font-bold rounded bg-gold/20 text-gold border border-gold/30">Staff Only</span>
+            </div>
+            <p class="text-xs text-slateMist mt-1">Authorized medical staff access to patient bookings, clinical triage, consultation schedules, and SMS dispatcher.</p>
+          </div>
+        </div>
+        <a href="portal.html" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gold text-obsidian font-bold text-xs uppercase tracking-widest hover:bg-gold-400 transition-all duration-200 shadow-lg shadow-gold/20 shrink-0 group">
+          <i data-lucide="lock" class="w-4 h-4"></i>
+          <span>Enter Clinic Portal</span>
+          <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+        </a>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs border-t border-obsidian-border/50">
         <p class="text-slateMist">
           Copyright &copy; 2026 Lumina Aesthetics. All rights reserved.
         </p>
-        <div class="flex items-center space-x-6 text-slateMist">
+        <div class="flex flex-wrap items-center justify-center gap-6 text-slateMist">
           <a href="#" class="hover:text-gold transition-colors">Privacy Policy</a>
           <a href="#" class="hover:text-gold transition-colors">Terms of Treatment</a>
           <a href="#contact" class="hover:text-gold transition-colors">Contact Concierge</a>
+          <a href="portal.html" class="inline-flex items-center gap-1.5 text-gold hover:text-gold-300 font-semibold transition-colors">
+            <i data-lucide="key" class="w-3.5 h-3.5"></i>
+            <span>Staff Portal Access</span>
+          </a>
         </div>
       </div>
 

@@ -596,9 +596,37 @@ export default function LuminaAesthetics() {
               <p className="text-xs font-mono text-[#F8F6F2]">+44 20 7946 0192</p>
               <p className="text-xs">concierge@luminaclinic.com</p>
             </div>
+          {/* Clinic Member & Staff Access VIP Card */}
+          <div className="my-8 bg-[#1A1D22]/60 border border-[#C5A880]/25 hover:border-[#C5A880]/50 rounded-2xl p-5 sm:p-6 transition-all duration-300 flex flex-col md:flex-row items-center justify-between gap-5 backdrop-blur-sm">
+            <div className="flex items-center gap-4 text-left">
+              <div className="w-12 h-12 rounded-xl bg-[#C5A880]/15 border border-[#C5A880]/40 text-[#C5A880] flex items-center justify-center shrink-0 shadow-lg shadow-[#C5A880]/10">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h5 className="text-sm font-bold text-[#F8F6F2] tracking-wider uppercase font-serif">Clinic Member &amp; Staff Portal</h5>
+                  <span className="px-2 py-0.5 text-[9px] font-mono font-bold rounded bg-[#C5A880]/20 text-[#C5A880] border border-[#C5A880]/30">Staff Only</span>
+                </div>
+                <p className="text-xs text-[#7A7D84] mt-1">Authorized medical staff access to patient bookings, clinical triage, consultation schedules, and SMS dispatcher.</p>
+              </div>
+            </div>
+            <a href="portal.html" className="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-[#C5A880] text-[#121417] font-bold text-xs uppercase tracking-widest hover:bg-[#D0B78B] transition-all duration-200 shadow-lg shadow-[#C5A880]/20 shrink-0 group">
+              <Shield className="w-4 h-4" />
+              <span>Enter Clinic Portal</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </a>
           </div>
-          <div className="pt-8 text-center sm:text-left text-xs">
-            <p>&copy; 2026 Lumina Aesthetics. All rights reserved.</p>
+
+          <div className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs border-t border-[#2A2E37]/50">
+            <p className="text-[#7A7D84]">&copy; 2026 Lumina Aesthetics. All rights reserved.</p>
+            <div className="flex flex-wrap items-center justify-center gap-6 text-[#7A7D84]">
+              <a href="#" className="hover:text-[#C5A880] transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-[#C5A880] transition-colors">Terms of Treatment</a>
+              <a href="portal.html" className="inline-flex items-center gap-1.5 text-[#C5A880] hover:text-[#D0B78B] font-semibold transition-colors">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>Staff Portal Access</span>
+              </a>
+            </div>
           </div>
         </div>
       </footer>
